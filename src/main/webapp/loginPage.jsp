@@ -1,8 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="model.UserBean"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="model.UserBean"%>
 <% if (session.getAttribute("registeredUser") != null) {
 		UserBean user = (UserBean) session.getAttribute("registeredUser");
-		if(user.getEmail().compareTo("") != 0) {
+		if(user.getEmail() != null && !user.getEmail().isEmpty()) {
 			response.sendRedirect("index.jsp");
 		}
 	}
@@ -25,24 +25,24 @@
 	
 	
 		<div class = "signin-signup">
-			<form action ="Login" METHOD="POST" class="signi-in-form">
+			<form action ="Login" method="POST" class="sign-in-form">
 			
-			<h2 class="title">Hai gi‡ un account?</h2>
+			<h2 class="title">Hai gi√† un account?</h2>
 
 				<div class="input-field">
 					<i class="fas fa-user"></i>
-					<input type="email" NAME="j_email" maxlength="50" placeholder="e-mail" required autofocus/>
+					<input type="email" name="j_email" maxlength="50" placeholder="e-mail" required autofocus/>
 				</div>
 				
 				<div class="input-field">
 					<i class="fas fa-lock"></i>
-					<input type="password" NAME="j_password" maxlength="50" placeholder="password" required/> 
+					<input type="password" name="j_password" maxlength="50" placeholder="password" required/> 
 				</div>
 				
 				<div>
-					<% if(session.getAttribute("login-error") != null) { %>
-					<h4 style="color: red">Password e/o e-mail sbagliate o inesistenti. Riprova.</h4>
-					<% } %>
+					<c:if test="${not empty sessionScope['login-error']}">
+						<h4 style="color: red">Password e/o e-mail sbagliate o inesistenti. Riprova.</h4>
+					</c:if>
 				</div>
 				
 				
